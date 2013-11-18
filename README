@@ -1,20 +1,29 @@
-# PUBLIC DOMAIN
+################################################################################
+# Author: Alan Reiner
+#
+# This code is being released as public domain
+################################################################################
 
 Debian/Ubuntu Offline Package Downloader
 
 The simply python script can be used with any Linux distro that uses apt-get
-for package management.  You provide it a location to dump the packages, and
-then a list of packages you want.  It will use its package manager to collect
-download links and MD5 sums of the package *and its dependency tree*.  
+for package management.  You provide it a list of packages to download, and 
+it will use its package manager to collect download links and MD5 sums of the 
+package *and its dependency tree*.  It will cram all these into python script
+that could be run on any system with a standard python installation.  It will
+also attempt to run this script, though failure is expected if this is an 
+offline system.
 
-If this is run from an offline computer, it will simply write a script with
-all the wget commands to fetch the dependencies.  It can then be run from 
-any online Linux system to fetch all the .debs and put them in a directory.  
-Take that dir back to the offline computer and simply run "sudo dpkg -i *.deb".
+Put the downloaded *.deb files onto a USB key or some other removable media,
+and take them to the offline computer.  "cd" into the directory and run 
+"sudo dpkg -i *.deb".  This will install all debs in the directory.  Since
+you downloaded the dependency trees, every dependency of any one of the debs
+is also in the dir, unless it's in the default OS installation.
 
 NOTE:  If the package or any of its dependencies are already installed, then 
 it will return less than would be needed for a bare installation.  If you are
 working with an offline computer, it is recommended you either run the script
-on an offline computer, or run it on an online computer that is a completely
-fresh install of the OS.  Otherwise it won't fetch the entire dependency tree.
+on the target offline system, or run it on an online computer/VM that is a 
+completely fresh install of the target OS.  Otherwise it won't fetch the 
+entire dependency tree.
 
